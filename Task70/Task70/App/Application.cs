@@ -23,11 +23,12 @@ namespace Task70.App
 
         public void LoginUser(User user)
         {
-            homePage.Open();
-            loginPage.Open();
-            loginPage.LoginInput.SendKeys(user.Login);
-            loginPage.PasswordInput.SendKeys(user.Password);
-            loginPage.LoginAccountButton.Click();
+            homePage.Open();//нужен ли нам вообще он тут??
+
+            loginPage.Open()
+                .EnterClick()
+                .LoginAs(user.Login, user.Password)
+                .SubmitClick();
         }
 
         public void LogoutUser()
@@ -35,7 +36,7 @@ namespace Task70.App
             loginPage.Logout();
         }
 
-        public bool LoggedIn()
+        public bool  LoggedIn()
         {
             return homePage.IsThisPage() && WaitElementDisplayed("uname");
         }

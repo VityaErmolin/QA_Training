@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+﻿using OpenQA.Selenium;
 
 namespace Task70.Pages
 {
-    internal class HomePage:Page
+    internal class HomePage : Page
     {
         public HomePage(IWebDriver driver) : base(driver)
         {
-
         }
 
         internal HomePage Open()
@@ -23,6 +18,5 @@ namespace Task70.Pages
         {
             return _driver.Title.Equals("Белорусский портал TUT.BY. Новости Беларуси и мира");
         }
-
     }
 }

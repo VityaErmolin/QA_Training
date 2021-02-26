@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Text;
+﻿using System.Collections;
 using Task70.Model;
 
 namespace Task70.Tests
@@ -11,7 +9,7 @@ namespace Task70.Tests
         {
             get
             {
-                yield return new User()
+                yield return new User
                 {
                     Login = "seleniumtests@tut.by",
                     Password = "123456789zxcvbn"

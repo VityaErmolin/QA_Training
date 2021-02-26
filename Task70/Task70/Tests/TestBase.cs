@@ -1,5 +1,4 @@
-﻿
-using NUnit.Framework;
+﻿ using NUnit.Framework;
 using  Task70.App;
 
 namespace Task70.Tests
