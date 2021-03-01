@@ -66,7 +66,7 @@ namespace Task2Test
         [TearDown]
         public void closeBrowser()
         {
-            driver.Close();
+            driver.Quit();
         }
     }
 }
