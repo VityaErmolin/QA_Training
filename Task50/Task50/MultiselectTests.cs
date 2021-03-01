@@ -29,8 +29,7 @@ namespace Task50
             Assert.False(select.IsMultiple);
             Assert.AreEqual(8, select.Options.Count);
             select.SelectByValue("Monday");
-            Assert.AreEqual("Monday", select.SelectedOption.Text);
-            Thread.Sleep(1500);
+            Assert.AreEqual("Monday", select.SelectedOption.Text, "The result is not the same as expected");
         }
 
         [Test]
@@ -58,13 +57,13 @@ namespace Task50
                 actualOptions.Add(option.Text);
             } 
             
-            Assert.AreEqual(expectedOptions, actualOptions);
+            Assert.AreEqual(expectedOptions, actualOptions, "The result is not the same as expected");
         }
 
         [TearDown]
         public void CloseBrowser()
         {
-            driver.Close();
+            driver.Quit();
         }
     }
 }

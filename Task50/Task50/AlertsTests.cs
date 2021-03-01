@@ -27,7 +27,7 @@ namespace Task50
             Thread.Sleep(3000);
             var alertText = alert.Text;
             alert.Dismiss();
-            Assert.AreEqual(alertText, "I am an alert box!");
+            Assert.AreEqual(alertText, "I am an alert box!", "The result is not the same as expected");
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace Task50
 
             var text = driver.FindElement(By.Id("confirm-demo")).Text;
 
-            Assert.AreEqual(text, "You pressed OK!");
+            Assert.AreEqual(text, "You pressed OK!", "The result is not the same as expected!");
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace Task50
 
             var text = driver.FindElement(By.Id("confirm-demo")).Text;
 
-            Assert.AreEqual(text, "You pressed Cancel!");
+            Assert.AreEqual(text, "You pressed Cancel!", "The result is not the same as expected");
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace Task50
             alert.Accept();
             var expectedText = "You have entered '" + inputText + "' !";
             var actualText =driver.FindElement(By.Id("prompt-demo")).Text;
-            Assert.AreEqual(expectedText, actualText);
+            Assert.AreEqual(expectedText, actualText, "The entered text does not match the expected text!");
         }
 
         [Test]
@@ -76,13 +76,13 @@ namespace Task50
             alert.SendKeys(inputText);
             alert.Dismiss();
             var actualText = driver.FindElement(By.Id("prompt-demo")).Text;
-            Assert.AreEqual(string.Empty, actualText);
+            Assert.AreEqual(string.Empty, actualText, "The result should be empty!");
         }
 
         [TearDown]
         public void CloseBrowser()
         {
-            driver.Close();
+            driver.Quit();
         }
     }
 }

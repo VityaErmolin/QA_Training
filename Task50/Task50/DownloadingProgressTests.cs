@@ -24,7 +24,7 @@ namespace Task50
         {
             driver.FindElement(By.Id("cricle-btn")).Click();
             var waiter = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
-            var element = waiter.Until(condition =>
+            var elementText50orMore = waiter.Until(condition =>
             {
                 try
                 {
@@ -46,19 +46,19 @@ namespace Task50
                 }
             });
 
-            if (element)
+            if (elementText50orMore)
             {
                 driver.Navigate().Refresh();
             }
 
             var elementText0 = driver.FindElement(By.ClassName("percenttext")).Text;
-            Assert.AreEqual(elementText0, "0%");
+            Assert.AreEqual(elementText0, "0%", "The result should be 0%");
         }
 
         [TearDown]
         public void CloseBrowser()
         {
-            driver.Close();
+            driver.Quit();
         }
     }
 }

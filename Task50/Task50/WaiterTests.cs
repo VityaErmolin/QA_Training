@@ -28,7 +28,7 @@ namespace Task50
             var elem = waiter.Until(ExpectedConditions
                 .ElementIsVisible(By.CssSelector("#loading>img")));
 
-            Assert.True(elem.Displayed);
+            Assert.True(elem.Displayed, "Element should be displayed");
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace Task50
             driver.FindElement(By.Id("save")).Click();
             var waiter = new WebDriverWait(driver, TimeSpan.FromSeconds(1));
 
-            var elem = waiter.Until(condition =>
+            var elementBeDisplayed = waiter.Until(condition =>
             {
                 try
                 {
@@ -55,13 +55,13 @@ namespace Task50
                 }
             });
 
-            Assert.True(elem);
+            Assert.True(elementBeDisplayed, "The element is not displayed");
         }
 
         [TearDown]
         public void CloseBrowser()
         {
-            driver.Close();
+            driver.Quit();
         }
     }
 }

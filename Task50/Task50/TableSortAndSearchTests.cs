@@ -29,22 +29,22 @@ namespace Task50
         public void GetFilteringEmployeesTest()
         {
             var selector = new SelectElement(driver.FindElement(By.XPath("//select[@name='example_length']")));
-            Assert.False(selector.IsMultiple);
+            Assert.False(selector.IsMultiple, "Selector cannot be multiple!");
             selector.SelectByValue("10");
             var expectedOption = "10";
             var actualOption = driver.FindElement(By.XPath("//option[@value='10']")).Text;
-            Assert.AreEqual(expectedOption, actualOption);
+            Assert.AreEqual(expectedOption, actualOption, "The result cannot be equal less than or equal to 0!");
 
             //Count of page
             var countOfPage =
                 driver.FindElements(By.CssSelector("#example_paginate span a")).Count;
-            Assert.True(countOfPage > 0); 
+            Assert.True(countOfPage > 0, "The count of pages must be greater than 0!"); 
             
             var employeesAll = GrabAllDataFromAllPages(countOfPage);
 
             EMPLOYEES = FilterEmployees(employeesAll);
 
-            Assert.True(EMPLOYEES.Any());
+            Assert.True(EMPLOYEES.Any(), "The result should not be empty");
         }
 
         private IEnumerable<Employee> GrabAllDataFromAllPages(int countOfPage)
@@ -70,13 +70,13 @@ namespace Task50
                         Salary = int.TryParse(ympl.FindElement(By.XPath("td[6]")).GetAttribute("data-order"),
                             out var salary)
                             ? salary
-                            : throw new ArgumentException("")
+                            : throw new ArgumentException("Cannot convert from string to integer.")
                     });
                     allData.AddRange(employeesFromPage);
                 }
             }
 
-            Assert.True(allData.Any());
+            Assert.True(allData.Any(), "The result should not be empty");
             return allData;
         }
 
@@ -88,7 +88,7 @@ namespace Task50
                 try
                 {
                     var items = driver.FindElements(By.CssSelector("#example tbody tr"));
-                    Assert.True(items.Any());
+                    Assert.True(items.Any(), "The result should not be empty");
                     return items.Any();
                 }
                 catch (InvalidElementStateException)

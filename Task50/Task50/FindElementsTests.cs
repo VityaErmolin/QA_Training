@@ -19,8 +19,7 @@ namespace Task50
         public void Setup()
         {
             driver = new ChromeDriver();
-            //driver.Manage().Timeouts().ImplicitWait=TimeSpan.FromMilliseconds(500);
-            //driver.Manage().Timeouts().PageLoad = TimeSpan.FromMilliseconds(2300);
+            driver.Manage().Timeouts().ImplicitWait=TimeSpan.FromSeconds(15);
             driver.Url = TUT_BY_URL;
         }
 
@@ -65,7 +64,7 @@ namespace Task50
             driver.FindElement(clickEnter).Click();
 
             var waiter = new WebDriverWait(driver, TimeSpan.FromMilliseconds(0));
-            var element = waiter.Until(condition =>
+            var isUsernameDisplayed = waiter.Until(condition =>
             {
                 try
                 {
@@ -83,16 +82,13 @@ namespace Task50
                 }
             });
             
-            //By userName = By.ClassName("uname");
-
-            Assert.True(element, "Login name is not displayed!");
-            //Assert.True(driver.FindElement(userName).Displayed, "Login name is not displayed! Authorization failed");
+            Assert.True(isUsernameDisplayed, "Login name is not displayed!");
         }
 
         [TearDown]
         public void CloseBrowser()
         {
-            driver.Close();
+            driver.Quit();
         }
     }
 }
