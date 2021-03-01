@@ -11,7 +11,7 @@ namespace Task70.Tests
         public void CanUserLogin(User user)
         {
             app.LoginUser(user);
-            Assert.True(app.LoggedIn());
+            Assert.True(app.LoggedIn(), "Login process was failed!");
         }
 
         [Test]
@@ -20,7 +20,7 @@ namespace Task70.Tests
         {
             app.LoginUser(user);
             app.LogoutUser();
-            Assert.True(app.LoggedOut());
+            Assert.True(app.LoggedOut(), "Logout process was failed!");
         }
     }
 }

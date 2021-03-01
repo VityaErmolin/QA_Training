@@ -16,8 +16,17 @@ namespace Task70.Pages
         [FindsBy(How = How.Name, Using = "password")]
         private IWebElement PasswordInput;
 
+
         [FindsBy(How = How.XPath, Using = "//input[contains(@class,'auth__enter')]")]
         private IWebElement Submit;
+
+        [FindsBy(How = How.ClassName, Using = "uname")]
+        private IWebElement UserMenu;
+
+        [FindsBy(How = How.XPath, Using = "//a[contains(@class,'auth__reg')]")]
+        private IWebElement ButtonExit;
+
+
 
         internal LoginPage Open()
         {
@@ -45,8 +54,8 @@ namespace Task70.Pages
 
         public HomePage Logout()
         {
-            _driver.FindElement(By.ClassName("uname")).Click();
-            _driver.FindElement(By.XPath("//a[contains(@class,'auth__reg')]")).Click();
+            UserMenu.Click();
+            ButtonExit.Click();
             return new HomePage(_driver);
         }
     }

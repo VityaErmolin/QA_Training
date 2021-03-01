@@ -11,21 +11,18 @@ namespace Task70.App
     {
         private readonly IWebDriver _driver;
 
-        private readonly HomePage homePage;
-        private readonly LoginPage loginPage;
+        private  HomePage homePage;
+        private  LoginPage loginPage;
 
         public Application()
         {
             _driver = new ChromeDriver();
-            homePage = new HomePage(_driver);
             loginPage = new LoginPage(_driver);
         }
 
         public void LoginUser(User user)
         {
-            homePage.Open();//нужен ли нам вообще он тут??
-
-            loginPage.Open()
+            homePage = loginPage.Open()
                 .EnterClick()
                 .LoginAs(user.Login, user.Password)
                 .SubmitClick();
@@ -33,7 +30,7 @@ namespace Task70.App
 
         public void LogoutUser()
         {
-            loginPage.Logout();
+            homePage = loginPage.Logout();
         }
 
         public bool  LoggedIn()
