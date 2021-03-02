@@ -1,18 +1,12 @@
-﻿using System.IO;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
-using WDSE;
-using WDSE.Decorators;
-using WDSE.ScreenshotMaker;
 
 namespace Task70.Pages
 {
     internal class LoginPage : Page
     {
-        public LoginPage(IWebDriver driver) : base(driver)
-        {
-            PageFactory.InitElements(driver, this);
-        }
+        [FindsBy(How = How.XPath, Using = "//a[contains(@class,'auth__reg')]")]
+        private IWebElement ButtonExit;
 
         [FindsBy(How = How.Name, Using = "login")]
         private IWebElement LoginInput;
@@ -27,9 +21,10 @@ namespace Task70.Pages
         [FindsBy(How = How.ClassName, Using = "uname")]
         private IWebElement UserMenu;
 
-        [FindsBy(How = How.XPath, Using = "//a[contains(@class,'auth__reg')]")]
-        private IWebElement ButtonExit;
-
+        public LoginPage(IWebDriver driver) : base(driver)
+        {
+            PageFactory.InitElements(driver, this);
+        }
 
 
         internal LoginPage Open()
@@ -38,12 +33,13 @@ namespace Task70.Pages
             return this;
         }
 
-        public LoginPage LoginAs(string username, string password) 
+        public LoginPage LoginAs(string username, string password)
         {
             LoginInput.SendKeys(username);
             PasswordInput.SendKeys(password);
             return this;
         }
+
         public LoginPage EnterClick()
         {
             _driver.FindElement(By.ClassName("enter")).Click();
@@ -54,7 +50,7 @@ namespace Task70.Pages
         {
             Submit.Click();
             return new HomePage(_driver);
-    }
+        }
 
         public HomePage Logout()
         {

@@ -8,11 +8,6 @@ namespace Task70.Pages
         {
         }
 
-        internal HomePage Open()
-        {
-            _driver.Url = "https://www.tut.by/";
-            return this;
-        }
 
         public bool IsThisPage()
         {

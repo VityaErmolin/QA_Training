@@ -11,8 +11,8 @@ namespace Task70.App
     {
         private readonly IWebDriver _driver;
 
-        private  HomePage homePage;
-        private  LoginPage loginPage;
+        private HomePage homePage;
+        private readonly LoginPage loginPage;
 
         public Application()
         {
@@ -22,8 +22,10 @@ namespace Task70.App
 
         public void LoginUser(User user)
         {
-            homePage = loginPage.Open()
-                .EnterClick()
+            loginPage.Open();
+            MakeScreenShot();
+
+            homePage = loginPage.EnterClick()
                 .LoginAs(user.Login, user.Password)
                 .SubmitClick();
         }
@@ -33,7 +35,7 @@ namespace Task70.App
             homePage = loginPage.Logout();
         }
 
-        public bool  LoggedIn()
+        public bool LoggedIn()
         {
             return homePage.IsThisPage() && WaitElementDisplayed("uname");
         }
@@ -73,7 +75,7 @@ namespace Task70.App
 
         public void MakeScreenShot()
         {
-            ((ITakesScreenshot)_driver).GetScreenshot().SaveAsFile("Screenshot" + DateTime.Now.ToFileTime() + ".png");
+            ((ITakesScreenshot) _driver).GetScreenshot().SaveAsFile("Screenshot" + DateTime.Now.ToFileTime() + ".png");
         }
     }
 }

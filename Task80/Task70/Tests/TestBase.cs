@@ -1,6 +1,6 @@
-﻿ using NUnit.Framework;
- using NUnit.Framework.Interfaces;
- using  Task70.App;
+﻿using NUnit.Framework;
+using NUnit.Framework.Interfaces;
+using Task70.App;
 
 namespace Task70.Tests
 {
@@ -25,7 +25,5 @@ namespace Task70.Tests
             app.Quit();
             app = null;
         }
-
-        
     }
 }
