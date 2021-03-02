@@ -17,7 +17,7 @@ namespace Task70.Pages
         [FindsBy(How = How.Name, Using = "login")]
         private IWebElement LoginInput;
 
-        [FindsBy(How = How.Name, Using = "password")]
+        [FindsBy(How = How.Name, Using = "password1")]
         private IWebElement PasswordInput;
 
 
