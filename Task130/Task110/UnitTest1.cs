@@ -22,7 +22,7 @@ namespace Task110
         public void Test1()
         {
             var t = _driver.FindElement(By.ClassName("enter"));
-            Assert.True(!t.Displayed);
+            Assert.True(t.Displayed);
         }
 
         [TearDown]
