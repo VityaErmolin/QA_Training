@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Allure.Commons;
 using Allure.Commons.Model;
 using Allure.NUnit.Attributes;
@@ -32,6 +33,8 @@ namespace Task110
         {
             var t = _driver.FindElement(By.ClassName("enter"));
             Assert.True(t.Displayed);
+            Thread.Sleep(5000);
+
         }
 
         [TearDown]
