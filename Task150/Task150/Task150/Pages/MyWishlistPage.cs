@@ -8,16 +8,16 @@ namespace Task150.Pages
 {
     internal class MyWishlistPage : Page
     {
-        private string NAME_WISHLIST = "MyWishlist";
-
-        [FindsBy(How = How.CssSelector, Using = "tbody > tr .wishlist_delete > .icon")]
-        private IList<IWebElement> WishlistListsDeleteButton;
+        private readonly string NAME_WISHLIST = "MyWishlist";
 
         [FindsBy(How = How.Id, Using = "name")]
         private IWebElement NameWishlistField;
 
-        [FindsBy(How =How.Id, Using = "submitWishlist")]
+        [FindsBy(How = How.Id, Using = "submitWishlist")]
         private IWebElement SaveWishlistButton;
+
+        [FindsBy(How = How.CssSelector, Using = "tbody > tr .wishlist_delete > .icon")]
+        private IList<IWebElement> WishlistListsDeleteButton;
 
         public MyWishlistPage(IWebDriver driver) : base(driver)
         {
@@ -54,7 +54,6 @@ namespace Task150.Pages
 
         public bool IsWishlistEmpty()
         {
-
             var isClean = _driver.WaiterByElementIsNotDisplay(By.Id("block-history"));
             return isClean;
         }
@@ -82,7 +81,7 @@ namespace Task150.Pages
 
             return int.TryParse(qtyString, out var qty)
                 ? qty
-                : throw new ArgumentException("Cannot parse string to integer!");
+                : throw new ArgumentException($"Cannot parse string {qtyString} to integer!");
         }
     }
 }

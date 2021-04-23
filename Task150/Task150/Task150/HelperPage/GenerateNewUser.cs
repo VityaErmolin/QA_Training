@@ -14,12 +14,7 @@ namespace Task150.HelperPage
             user.LastName = "FirstName";
             user.Email = string.IsNullOrEmpty(email) ? guidString + "@mail.com" : email;
             user.Password = "123456789";
-            user.BirthDate = new BirthDate
-            {
-                DayOfBirth = "9",
-                MonthOfBirth = Month.July,
-                YearOfBirth = "1998"
-            };
+            user.BirthDate = new DateTime(1998,7,9);
             user.IsSignUpForNewsletter = true;
             user.IsReceiveSpecialOffers = false;
             user.Company = "Company";

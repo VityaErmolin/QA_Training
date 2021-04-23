@@ -10,8 +10,6 @@ namespace Task150.Pages
         protected IWebDriver _driver;
         protected WebDriverWait wait;
 
-        public MenuHeader MenuHeader { get; }
-
         public Page(IWebDriver driver)
         {
             _driver = driver;
@@ -19,5 +17,6 @@ namespace Task150.Pages
             MenuHeader = new MenuHeader(_driver);
         }
 
+        public MenuHeader MenuHeader { get; }
     }
 }

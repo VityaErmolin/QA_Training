@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using Allure.Commons.Model;
+﻿using Allure.Commons.Model;
 using Allure.NUnit.Attributes;
 using NUnit.Framework;
 using Task150.Model;
@@ -10,7 +6,7 @@ using Task150.Pages;
 
 namespace Task150.Tests
 {
-    public class AddProductToCartTest :TestBase
+    public class AddProductToCartTest : TestBase
     {
         [AllureSubSuite("CanAddProductToCartTest")]
         [AllureSeverity(SeverityLevel.Critical)]
@@ -36,12 +32,12 @@ namespace Task150.Tests
             Assert.True(cartPage.IsEmpty(), "Cart is not empty");
 
             var womenProductPage = cartPage.MenuHeader.WomenTabClick();
-            womenProductPage.AddedThreeProductToCart();
+            womenProductPage.AddProductToCart(3);
 
             cartPage = womenProductPage.MenuHeader.CartButtonClick();
-            
+
             Assert.False(cartPage.IsEmpty(), "Cart is not empty");
-            Assert.AreEqual(cartPage.GetCountProducts(),3);
+            Assert.AreEqual(cartPage.GetCountProducts(), 3);
         }
     }
 }

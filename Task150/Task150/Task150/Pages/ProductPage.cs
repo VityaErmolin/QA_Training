@@ -6,17 +6,16 @@ namespace Task150.Pages
 {
     internal class ProductPage : Page
     {
-        [FindsBy(How = How.XPath, Using = "//h1[@itemprop='name']")]
-        private IWebElement ProductTitle;
-
         [FindsBy(How = How.Id, Using = "wishlist_button")]
         private IWebElement AddToWishlistButton;
+
+        [FindsBy(How = How.XPath, Using = "//h1[@itemprop='name']")]
+        private IWebElement ProductTitle;
 
 
         public ProductPage(IWebDriver driver) : base(driver)
         {
             PageFactory.InitElements(driver, this);
-
         }
 
         public bool IsThisPage()
@@ -35,6 +34,7 @@ namespace Task150.Pages
             {
                 _driver.FindElement(infoWindowsButton).Click();
             }
+
             return this;
         }
     }

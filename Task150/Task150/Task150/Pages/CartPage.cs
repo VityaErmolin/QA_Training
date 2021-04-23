@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
-using Task150.HelperPage;
 
 namespace Task150.Pages
 {
-    internal class CartPage:Page
+    internal class CartPage : Page
     {
-        [FindsBy(How = How.ClassName, Using = "icon-trash")] //// 
+        [FindsBy(How = How.ClassName, Using = "icon-trash")]
         private IList<IWebElement> ProductDeleteButtonList;
 
-        public CartPage(IWebDriver driver):base(driver)
+        public CartPage(IWebDriver driver) : base(driver)
         {
             PageFactory.InitElements(driver, this);
         }
@@ -32,6 +29,7 @@ namespace Task150.Pages
                     deleteProductButton.Click();
                 }
             }
+
             return this;
         }
 
@@ -42,8 +40,7 @@ namespace Task150.Pages
 
         public bool IsEmpty()
         {
-            return ProductDeleteButtonList.Count == 0;  
+            return ProductDeleteButtonList.Count == 0;
         }
-        
     }
 }

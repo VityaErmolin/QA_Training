@@ -1,5 +1,4 @@
 ﻿using System;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
@@ -26,11 +25,12 @@ namespace Task150.Pages
         [FindsBy(How = How.Id, Using = "company")]
         private IWebElement CompanyField;
 
+        //Selects
         [FindsBy(How = How.Id, Using = "id_country")]
-        private IWebElement CountrySelect;
+        public IWebElement CountrySelect;
 
         [FindsBy(How = How.Id, Using = "days")]
-        private IWebElement DayOfBirthSelect;
+        public IWebElement DayOfBirthSelect;
 
         //Personal Information
         [FindsBy(How = How.Id, Using = "customer_firstname")]
@@ -48,11 +48,14 @@ namespace Task150.Pages
         [FindsBy(How = How.Id, Using = "customer_lastname")]
         private IWebElement LastNameField;
 
+        [FindsBy(How = How.Id, Using = "id_gender1")]
+        private IWebElement ManRadioButton;
+
         [FindsBy(How = How.Id, Using = "phone_mobile")]
         private IWebElement MobilePhoneField;
 
         [FindsBy(How = How.Id, Using = "months")]
-        private IWebElement MonthOfBirthSelect;
+        public IWebElement MonthOfBirthSelect;
 
         [FindsBy(How = How.Id, Using = "passwd")]
         private IWebElement PasswordField;
@@ -64,13 +67,17 @@ namespace Task150.Pages
         private IWebElement RegistweButton;
 
         [FindsBy(How = How.Id, Using = "id_state")]
-        private IWebElement StateSelect;
+        public IWebElement StateSelect;
 
         [FindsBy(How = How.Id, Using = "address1")]
         private IWebElement StreetAddressField;
 
+        [FindsBy(How = How.Id, Using = "id_gender2")]
+        private IWebElement WomanRadioButton;
+
         [FindsBy(How = How.Id, Using = "years")]
-        private IWebElement YearOfBirthSelect;
+        public IWebElement YearOfBirthSelect;
+
 
         public AccountCreationPage(IWebDriver driver) : base(driver)
         {
@@ -84,44 +91,13 @@ namespace Task150.Pages
                    _driver.FindElement(byClassName).Displayed;
         }
 
-        public bool DayOfBirthSelectIsMultiple()
+        public bool IsMultiple(IWebElement element)
         {
-            return !_driver.WaiterByElementIsDisplay(By.Id("days"))
-                   && new SelectElement(DayOfBirthSelect).IsMultiple;
-        }
-
-        public bool MonthOfBirthSelectIsMultiple()
-        {
-            return !_driver.WaiterByElementIsDisplay(By.Id("months"))
-                   && new SelectElement(MonthOfBirthSelect).IsMultiple;
-        }
-
-        public bool YearOfBirthSelectIsMultiple()
-        {
-            return !_driver.WaiterByElementIsDisplay(By.Id("years"))
-                   && new SelectElement(YearOfBirthSelect).IsMultiple;
-        }
-
-        public bool StateSelectIsMultiple()
-        {
-            return !_driver.WaiterByElementIsDisplay(By.Id("id_state"))
-                   && new SelectElement(StateSelect).IsMultiple;
-        }
-
-        public bool CountrySelectIsMultiple()
-        {
-            return !_driver.WaiterByElementIsDisplay(By.Id("id_country"))
-                   && new SelectElement(CountrySelect).IsMultiple;
+            return new SelectElement(element).IsMultiple;
         }
 
         public AccountCreationPage FillFields(User user)
         {
-            var byId = By.Id("id_gender1");
-            if (!_driver.WaiterByElementIsDisplay(byId))
-            {
-                throw new ArgumentException("Error! You are on a different page!");
-            }
-
             FillPersonalInformation(user.IsMan, user.FirstName,
                 user.LastName, user.Password, user.BirthDate,
                 user.IsSignUpForNewsletter, user.IsReceiveSpecialOffers);
@@ -140,14 +116,14 @@ namespace Task150.Pages
         }
 
         private void FillPersonalInformation(bool isMan, string firstName,
-            string lastName, string password, BirthDate birthDate,
+            string lastName, string password, DateTime birthDate,
             bool isSignUpForNewsletter, bool isReceiveSpecialOffers)
         {
             //Title
             //Radio Button Gender
             var genderRadioElement = isMan
-                ? _driver.FindElement(By.Id("id_gender1"))
-                : _driver.FindElement(By.Id("id_gender2"));
+                ? ManRadioButton
+                : WomanRadioButton;
             genderRadioElement.Click();
 
             //First Name
@@ -160,24 +136,15 @@ namespace Task150.Pages
 
             //Date of Birth
             var dayOfBirthSelect = new SelectElement(DayOfBirthSelect);
-            Assert.False(dayOfBirthSelect.IsMultiple);
-            if (!(int.TryParse(birthDate.DayOfBirth, out var day) && day > 1 && day < 31))
-            {
-                throw new ArgumentException("The day of the month can not be less than 1 and more than 31");
-            }
-
-            dayOfBirthSelect.SelectByValue(birthDate.DayOfBirth);
+            dayOfBirthSelect.SelectByValue(birthDate.Day.ToString());
 
             //Month of Birth
             var monthOfBirthSelect = new SelectElement(MonthOfBirthSelect);
-            Assert.False(monthOfBirthSelect.IsMultiple);
-            var monthByByte = (int) birthDate.MonthOfBirth;
-            monthOfBirthSelect.SelectByValue(monthByByte.ToString());
+            monthOfBirthSelect.SelectByValue(birthDate.Month.ToString());
 
             //Year of Birth
             var yearOfBirthSelect = new SelectElement(YearOfBirthSelect);
-            Assert.False(yearOfBirthSelect.IsMultiple);
-            yearOfBirthSelect.SelectByValue(birthDate.YearOfBirth);
+            yearOfBirthSelect.SelectByValue(birthDate.Year.ToString());
 
             //Mailling
             if (isSignUpForNewsletter)

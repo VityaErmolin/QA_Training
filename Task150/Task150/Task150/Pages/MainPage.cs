@@ -6,7 +6,6 @@ namespace Task150.Pages
     {
         public MainPage(IWebDriver driver) : base(driver)
         {
-            
         }
 
         public MainPage Open()

@@ -15,7 +15,6 @@ namespace Task150.Tests
         [AllureLink("https://github.com/VityaErmolin/QA_Training")]
         [AllureTest("This test create account")]
         [AllureOwner("Viktor Ermolin")]
-
         [Test]
         [TestCaseSource(typeof(DataProviders), "ValidUsers")]
         public void CanCreateUserAccountTest(User user)
@@ -29,11 +28,12 @@ namespace Task150.Tests
 
             Assert.True(accountCreationPage.IsThisPage(), "This is not account creation page!");
 
-            Assert.False(accountCreationPage.DayOfBirthSelectIsMultiple()
-                         && accountCreationPage.MonthOfBirthSelectIsMultiple()
-                         && accountCreationPage.YearOfBirthSelectIsMultiple()
-                         && accountCreationPage.StateSelectIsMultiple()
-                         && accountCreationPage.CountrySelectIsMultiple(), "Selects shouldn't be multiple!");
+            Assert.False(accountCreationPage.IsMultiple(accountCreationPage.DayOfBirthSelect )
+                         && accountCreationPage.IsMultiple(accountCreationPage.MonthOfBirthSelect)
+                         && accountCreationPage.IsMultiple(accountCreationPage.YearOfBirthSelect)
+                         && accountCreationPage.IsMultiple(accountCreationPage.StateSelect)
+                         && accountCreationPage.IsMultiple(accountCreationPage.CountrySelect),
+                "Selects shouldn't be multiple!");
 
             var myAccountPage = accountCreationPage.FillFields(user)
                 .RegisterButtonClick();

@@ -16,7 +16,8 @@ namespace Task150.Tests
         public void Setup()
         {
             _driver = new ChromeDriver();
-           
+            _driver.Manage().Timeouts().ImplicitWait=TimeSpan.FromSeconds(15);
+            _driver.Manage().Window.Maximize();
         }
 
         [TearDown]
@@ -41,8 +42,8 @@ namespace Task150.Tests
             var nameScreenshot = "Screenshot_" + TestContext.CurrentContext.Test.MethodName + "_" +
                                  DateTime.Now.ToFileTime() + ".png";
 
-                AllureLifecycle.Instance.AddAttachment(nameScreenshot, AllureLifecycle.AttachFormat.ImagePng,
-                    _driver.TakeScreenshot().AsByteArray);
+            AllureLifecycle.Instance.AddAttachment(nameScreenshot, AllureLifecycle.AttachFormat.ImagePng,
+                _driver.TakeScreenshot().AsByteArray);
         }
     }
 }

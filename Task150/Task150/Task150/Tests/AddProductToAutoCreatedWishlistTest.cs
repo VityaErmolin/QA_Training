@@ -13,7 +13,6 @@ namespace Task150.Tests
         [AllureLink("https://github.com/VityaErmolin/QA_Training")]
         [AllureTest("This test create and add product to auto-Wishlist")]
         [AllureOwner("Viktor Ermolin")]
-
         [Test]
         [TestCaseSource(typeof(DataProviders), "ValidUsersWithCustomEmail")]
         public void CanAddProductToAutoCreatedWishlistTest(User user)
@@ -36,17 +35,14 @@ namespace Task150.Tests
             var womanTabPage = wishlistPage.MenuHeader.WomenTabClick();
             Assert.True(womanTabPage.IsThisPage(), "This is not woman tab page");
 
-            var productPage = womanTabPage.ChooseProduct();
-            Assert.True(productPage.IsThisPage(), "This is not product page");
+            myAccountPage = womanTabPage.MoveToElement(1)
+               .AddToWishlisClick()
+               .CloseFancyboxClick()
+               .MenuHeader.AccountClick();
+           Assert.True(myAccountPage.IsThisPage(), "This is not authentication page!");
 
-            productPage.AddToWishlistButtonClick();
-            Assert.True(productPage.IsThisPage(), "This is not product page");
-
-            myAccountPage = productPage.MenuHeader.AccountClick();
-            Assert.True(myAccountPage.IsThisPage(), "This is not authentication page!");
-
-            wishlistPage = myAccountPage.MyWishlistButtonClick();
-            Assert.True(wishlistPage.IsThisPage(), "This is not wishlist page");
+           wishlistPage = myAccountPage.MyWishlistButtonClick();
+           Assert.True(wishlistPage.IsThisPage(), "This is not wishlist page");
 
             Assert.AreEqual(1, wishlistPage.GetCountWishlist());
         }

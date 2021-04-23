@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Collections.Generic;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using SeleniumExtras.PageObjects;
 using Task150.HelperPage;
@@ -7,8 +8,15 @@ namespace Task150.Pages
 {
     internal class WomenTabPage : Page
     {
-        [FindsBy(How = How.XPath, Using = "//a[contains(@class,'button lnk_view')]")]
-        private IWebElement MoreButton;
+        
+        [FindsBy(How = How.XPath, Using = "//ul[contains(@class,'product_list')]/li")]
+        private IList<IWebElement> ItemsElements { get; set; }
+
+        [FindsBy(How = How.CssSelector, Using = ".wishlist>a")]
+        private IWebElement AddToWishlist { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//a[@title='Close']")]
+        private IWebElement CloseFancybox { get; set; }
 
         public WomenTabPage(IWebDriver driver) : base(driver)
         {
@@ -20,49 +28,46 @@ namespace Task150.Pages
             return _driver.Title.Equals("Women - My Store");
         }
 
-        public ProductPage ChooseProduct()
+        public WomenTabPage MoveToElement(int number)
         {
-            ActionMouseToProduct(1);
-            MoreButton.Click();
-            return new ProductPage(_driver);
+            var action = new Actions(_driver);
+            action.MoveToElement(ItemsElements[number - 1]).Perform();
+            return this;
         }
 
-        public WomenTabPage AddedThreeProductToCart()
+        public WomenTabPage AddToWishlisClick()
         {
-            for (var i = 1; i <= 3 && IsThisPage(); i++)
+            AddToWishlist.Click();
+            return this;
+        }
+
+        public WomenTabPage AddProductToCart(int amountItem)
+        {
+            var action = new Actions(_driver);
+            for (var i = 0; i < amountItem && IsThisPage(); i++)
             {
-                ActionMouseToProduct(i);
-                var byAddToCartButton = "//a[contains(@class, 'ajax_add_to_cart_button')]";
-
-                if (_driver.WaiterByElementIsDisplay(By.XPath(byAddToCartButton)))
-                {
-                    var byaddToCartButton = By.XPath(GetProductStringXpathByNumber(i) + byAddToCartButton);
-                    if (_driver.WaiterByElementIsDisplay(byaddToCartButton))
-                    {
-                        _driver.FindElement(byaddToCartButton).Click();
-                    }
-
-                }
-
-                // MODULE Block cart 
-                if (_driver.WaiterByElementIsDisplay(By.Id("layer_cart_product_title")))
-                {
-                    _driver.FindElement(By.ClassName("cross")).Click();
-                }
+                action.MoveToElement(ItemsElements[i]).Perform();
+                AddItem(i + 1);
             }
 
             return this;
         }
 
-        private string GetProductStringXpathByNumber(int number)
+        public WomenTabPage CloseFancyboxClick()
         {
-            return $"//ul[contains(@class, 'product_list')]/li[{number}]";
+            CloseFancybox.Click();
+            return this;
         }
 
-        private void ActionMouseToProduct(int number)
+        private void AddItem(int number)
         {
-            var action = new Actions(_driver);
-            action.MoveToElement(_driver.FindElement(By.XPath(GetProductStringXpathByNumber(number))));
+            _driver.FindElement(By.XPath(
+                    $"//li[{number}]/div/div/div[@class='button-container']/a[contains(@class,'ajax_add_to_cart_button')]"))
+                .Click();
+            if (_driver.WaiterByElementIsDisplay(By.Id("layer_cart"), 5000))
+            {
+                _driver.FindElement(By.XPath("//span[contains(@class, 'continue')]")).Click();
+            }
         }
     }
 }

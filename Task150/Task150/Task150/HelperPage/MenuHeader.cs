@@ -8,11 +8,11 @@ namespace Task150.HelperPage
     {
         protected IWebDriver _driver;
 
-        [FindsBy(How = How.XPath, Using = "//a[@title='Women']")]
-        private IWebElement WomenTab;
-
         [FindsBy(How = How.CssSelector, Using = ".shopping_cart > a")]
         private IWebElement CartButton;
+
+        [FindsBy(How = How.XPath, Using = "//a[@title='Women']")]
+        private IWebElement WomenTab;
 
         public MenuHeader(IWebDriver driver)
         {
@@ -29,10 +29,11 @@ namespace Task150.HelperPage
         public MyAccountPage AccountClick()
         {
             var byAccountButton = By.ClassName("account");
-            if(_driver.WaiterByElementIsDisplay(byAccountButton))
+            if (_driver.WaiterByElementIsDisplay(byAccountButton))
             {
                 _driver.FindElement(byAccountButton).Click();
             }
+
             return new MyAccountPage(_driver);
         }
 
@@ -40,12 +41,6 @@ namespace Task150.HelperPage
         {
             CartButton.Click();
             return new CartPage(_driver);
-        }
-
-        public AuthenticationPage SingInClick()
-        {
-            _driver.FindElement(By.ClassName("login")).Click();
-            return new AuthenticationPage(_driver);
         }
     }
 }

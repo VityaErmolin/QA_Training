@@ -9,7 +9,7 @@ namespace Task150.Pages
         [FindsBy(How = How.CssSelector, Using = ".lnk_wishlist > a")]
         private IWebElement MyWishlistButton;
 
-        public  MyAccountPage(IWebDriver driver) : base(driver)
+        public MyAccountPage(IWebDriver driver) : base(driver)
         {
             PageFactory.InitElements(driver, this);
         }
@@ -23,7 +23,7 @@ namespace Task150.Pages
         public bool IsThisPage()
         {
             return _driver.WaiterByElementIsDisplay(By.CssSelector(".account>span"))
-            &&_driver.Title.Equals("My account - My Store");
+                   && _driver.Title.Equals("My account - My Store");
         }
     }
 }

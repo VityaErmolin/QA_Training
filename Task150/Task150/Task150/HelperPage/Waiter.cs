@@ -6,19 +6,9 @@ namespace Task150.HelperPage
 {
     public static class Waiter
     {
-        public static bool WaiterByElementIsDisplay(this IWebDriver _driver, By byElement)
+        public static bool WaiterByElementIsDisplay(this IWebDriver _driver, By byElement, int timeMillisecond=15000)
         {
-            if (_driver is null)
-            {
-                throw new ArgumentNullException("Driver is null!");
-            }
-
-            if (byElement is null)
-            {
-                throw new ArgumentNullException("By element is null!");
-            }
-
-            var waiter = new WebDriverWait(_driver, TimeSpan.FromMilliseconds(10000));
+           var waiter = new WebDriverWait(_driver, TimeSpan.FromMilliseconds(timeMillisecond));
 
             var element = waiter.Until(condition =>
             {
@@ -39,19 +29,9 @@ namespace Task150.HelperPage
             return element;
         }
 
-        public static bool WaiterByElementIsNotDisplay(this IWebDriver _driver, By byElement)
+        public static bool WaiterByElementIsNotDisplay(this IWebDriver _driver, By byElement, int timeMillisecond = 10000)
         {
-            if (_driver is null)
-            {
-                throw new ArgumentNullException("Driver is null!");
-            }
-
-            if (byElement is null)
-            {
-                throw new ArgumentNullException("By element is null!");
-            }
-
-            var waiter = new WebDriverWait(_driver, TimeSpan.FromMilliseconds(10000));
+            var waiter = new WebDriverWait(_driver, TimeSpan.FromMilliseconds(timeMillisecond));
 
             var element = waiter.Until(condition =>
             {

@@ -13,7 +13,6 @@ namespace Task150.Tests
         [AllureLink("https://github.com/VityaErmolin/QA_Training")]
         [AllureTest("This test login account successfully")]
         [AllureOwner("Viktor Ermolin")]
-
         [Test]
         [TestCaseSource(typeof(DataProviders), "ValidUsersWithCustomEmail")]
         public void CanLoginAccountSuccessTest(User user)
@@ -31,7 +30,6 @@ namespace Task150.Tests
         [AllureLink("https://github.com/VityaErmolin/QA_Training")]
         [AllureTest("This test login account failed")]
         [AllureOwner("Viktor Ermolin")]
-
         [Test]
         [TestCaseSource(typeof(DataProviders), "ValidUsersWithCustomEmail")]
         public void CanLoginAccountFailTest(User user)
@@ -41,11 +39,10 @@ namespace Task150.Tests
 
             var expected = _driver.Title;
 
-            authenticationPage.FillEmailAndPassword(user.Email, user.Password+"123")
+            authenticationPage.FillEmailAndPassword(user.Email, user.Password + "123")
                 .LoginButtonClick();
 
             Assert.AreEqual(expected, _driver.Title);
-           //Assert.False(myAccountPage.IsThisPage(), "This is not authentication page!");
         }
     }
 }

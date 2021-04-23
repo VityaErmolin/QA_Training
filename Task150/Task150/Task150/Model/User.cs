@@ -1,4 +1,6 @@
-﻿namespace Task150.Model
+﻿using System;
+
+namespace Task150.Model
 {
     public class User
     {
@@ -7,7 +9,7 @@
         public bool IsMan { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public BirthDate BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
         public string Company { get; set; }
         public string StreetAddress { get; set; }
         public string ApartmentAddress { get; set; }

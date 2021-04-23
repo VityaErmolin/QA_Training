@@ -1,7 +1,5 @@
-﻿using System.Threading;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
-using Task150.HelperPage;
 
 namespace Task150.Pages
 {
@@ -22,15 +20,15 @@ namespace Task150.Pages
         [FindsBy(How = How.Id, Using = "SubmitLogin")]
         private IWebElement SignInButton;
 
+        public AuthenticationPage(IWebDriver driver) : base(driver)
+        {
+            PageFactory.InitElements(driver, this);
+        }
+
         public AuthenticationPage Open()
         {
             _driver.Url = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
             return new AuthenticationPage(_driver);
-        }
-
-        public AuthenticationPage(IWebDriver driver) : base(driver)
-        {
-            PageFactory.InitElements(driver, this);
         }
 
         public AuthenticationPage FillEmailFieldForRegister(string email)
@@ -60,11 +58,7 @@ namespace Task150.Pages
 
         public bool IsThisPage()
         {
-            var byClassAuthenticationHeaderText = By.ClassName("page-heading");
-            return _driver.WaiterByElementIsDisplay(byClassAuthenticationHeaderText) 
-                   && string.Equals(_driver.FindElement(byClassAuthenticationHeaderText)
-                       .Text.ToLower(), 
-                       "authentication");
+            return _driver.Title.Equals("Login - My Store");
         }
     }
 }
